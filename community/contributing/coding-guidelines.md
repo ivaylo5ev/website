@@ -517,7 +517,7 @@ Good:
 
 ``` csharp
 class Message {
-     char text;
+     string text;
  
      public Message (string text)
      {
@@ -727,7 +727,7 @@ class X : Y {
     bool Method (int argument_1, int argument_2)
     {
         if (argument_1 == argument_2)
-            throw new Exception (Locale.GetText ("They are equal!");
+            throw new Exception (Locale.GetText ("They are equal!"));
  
         if (argument_1 < argument_2) {
             if (argument_1 * 3 > 4)
@@ -1043,7 +1043,7 @@ The same kind of deadlock that happened above happens here because the user acqu
 
 ### Don't lock on Types and Strings
 
-Code like lock (typeof (T)) is not good. Type objects can be shared across appdomains, which can lead to unexpected behavior. Also, if the type is public, a user could lock on the type and create deadlocks. Strings are interned, and thus the same type of problems can occur. In general, the best practice is to do:
+Code like lock (typeof (T)) is not good. Type objects can be shared across appdomains, which can lead to unexpected behavior. Also, if the type is public, a user could lock on the type and create deadlocks. Strings are interned, and thus the same type of problems can occur. In general, the best practice to create a static lock is to do:
 
 ``` csharp
 static object lockobj = new object ();
